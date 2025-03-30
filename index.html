@@ -1,17 +1,372 @@
 <!DOCTYPE html>
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Food Idea Generator</title>
-      <link rel="stylesheet" href="styles.css">
-  </head>
-  <body>
-      <div class="container">
-          <h1>Food Idea Generator</h1>
-          <button id="generateButton">Get Food Idea</button>
-          <p id="foodIdea"></p>
-      </div>
-      <script src="script.js"></script>
-  </body>
-  </html>
+<html lang="et">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mugavad toiduideed</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .card {
+            margin-bottom: 30px;
+        }
+        .card-body {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+        }
+        .ingredients, .preparation {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .preparation {
+            text-align: left; /* Ensure text is left-aligned */
+        }
+        .btn.active {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Mugavad toiduideed</h1>
+        <div class="text-center mb-4">
+            <button class="btn btn-primary active" onclick="filterRecipes('all', this)">Kõik</button>
+            <button class="btn btn-secondary" onclick="filterRecipes('sweet', this)">Magus</button>
+            <button class="btn btn-secondary" onclick="filterRecipes('breakfast', this)">Soolane</button>
+            <button class="btn btn-secondary" onclick="filterRecipes('soup', this)">Supid</button>
+            <button class="btn btn-secondary" onclick="filterRecipes('salad', this)">Salatid</button>
+            <button class="btn btn-secondary" onclick="filterRecipes('pizza', this)">Pizza</button>
+            <!-- Add more categories as needed -->
+        </div>
+        <div id="foodList" class="row">
+            <div class="col-12 mb-4 recipe-card" data-category="breakfast">
+                <div class="card">
+                    <img src="https://static01.nyt.com/images/2021/02/14/dining/carbonara-horizontal/carbonara-horizontal-threeByTwoMediumAt2X-v2.jpg" class="card-img-top" alt="Spaghetti Carbonara">
+                    <h5 class="card-title text-center mt-3">Spaghetti Carbonara</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>200g spagette</li>
+                                <li>100g pancettat</li>
+                                <li>2 suurt muna</li>
+                                <li>50g pecorino juustu, riivitud</li>
+                                <li>50g parmesani, riivitud</li>
+                                <li>Must pipar</li>
+                                <li>Sool</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Keeda spagette. Prae pancetta. Sega munad ja juust. Kombineeri kõik pastaga.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="sweet">
+                <div class="card">
+                    <img src="https://img.taste.com.au/3Lr_51Ay/taste/2019/01/chipotle-chicken-tacos-146425-1.jpg" class="card-img-top" alt="Kana Tacos">
+                    <h5 class="card-title text-center mt-3">Kana Tacos</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>500g kanafileed, tükeldatud</li>
+                                <li>1 spl oliiviõli</li>
+                                <li>1 tl tšillipulbrit</li>
+                                <li>1 tl köömneid</li>
+                                <li>8 väikest tortillat</li>
+                                <li>1 avokaado, viilutatud</li>
+                                <li>1 laim, mahl pressitud</li>
+                                <li>Sool ja pipar</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Küpseta kana vürtsidega. Serveeri tortillades koos lisanditega.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="sweet">
+                <div class="card">
+                    <img src="https://sonumid.ee/wp-content/uploads/2022/08/Retsep_HV.jpg" class="card-img-top" alt="Õunakook">
+                    <h5 class="card-title text-center mt-3">Õunakook</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>240 g nisujahu (4 dl)</li>
+                                <li>125 g suhkrut (1.5 dl)</li>
+                                <li>2 tl vanillisuhkrut (soovi korral)</li>
+                                <li>1.5 tl küpsetuspulbrit</li>
+                                <li>näpuotsaga soola</li>
+                                <li>100 g võid</li>
+                                <li>2 suurt muna</li>
+                                <li>2 dl hapupiima või keefirit</li>
+                                <li>500 g õuna</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Pese õunad, eemalda südamikud ja lõika õunad väikesteks kuubikuteks (kui kasutad poeõunu, siis võid need esmalt koorida). Sega kuivained omavahel. <br><br>Sulata või, pane tainakaussi. Lisa vähehaaval hapupiim, siis klopi juurde munad. Lisa kuivained ja õunakuubikud. <br><br>Pane tainas ühtlase kihina võitatud 25x32 cm koogivormi (plaadikoogi jaoks tee tainast topeltkogus), puista peale demerara suhkrut ja soovi korral ka nt kaneeli. <br><br>Küpseta 200kraadises ahjus helekollaseks (umbes 40-45 minutit). Veidi jahtunud koogile puista soovi korral tuhksuhkrut.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="breakfast">
+                <div class="card">
+                    <img src="https://images.delfi.ee/media-api-image-cropper/v1/a5b63220-5a4f-11ec-aaa6-d1a93e29350f.jpg?noup&w=1200&h=711&fx=0.5&fy=0.5&ch=0.8491&cw=1&cx=0&cy=0.0786&r=16:9" class="card-img-top" alt="Lihtsad hakk-kotletid">
+                    <h5 class="card-title text-center mt-3">Lihtsad hakk-kotletid</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>3 viilu saia või 1 dl riivsaia</li>
+                                <li>2 dl vedelikku, nt vett või hapukoort või rõõska koort</li>
+                                <li>1 hakitud sibul</li>
+                                <li>400-500 g kodust hakkliha</li>
+                                <li>1 muna</li>
+                                <li>1 tl soola</li>
+                                <li>0.5 tl purustatud musta pipart</li>
+                                <li>maitseaineid omal valikul</li>
+                                <li><strong>Praadimiseks:</strong> õli</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Pane saiaviilud või riivsai umbes viieks minutiks kaussi vedeliku sisse ligunema. <br><br>Haki sibul peeneks ja soovi korral prae kergelt väheses õlis. Lisa hakkliha, muna, sibul ja maitseained ning sega ühtlaseks. <br><br>Vormi saadud tainast märjaks kastetud kätega kotletid ja prae mõõdukal kuumusel kenasti pruuniks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="sweet">
+                <div class="card">
+                    <img src="https://nami-nami.ee/files/comments/280179/KylliJkaeraku%CC%88psised.jpeg" class="card-img-top" alt="Mõnusad kaeraküpsised">
+                    <h5 class="card-title text-center mt-3">Mõnusad kaeraküpsised</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>500 g kaerahelbeid</li>
+                                <li>4 suurt muna</li>
+                                <li>150 g suhkrut</li>
+                                <li>näpuotsaga soola (soovi korral)</li>
+                                <li>150 g sulatatud võid</li>
+                                <li>1 tl vanilliekstrakti</li>
+                                <li>100 g heledaid seemneteta rosinaid</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Vahusta munad suhkruga kohevaks heledaks vahuks. Maitsesta vanilliekstraktiga, lisa sulavõi, kaerahelbed ja rosinad. Sega hoolega, võimaluse korral lase umbes veerand tundi seista. <br><br>Kata ahjuplaat küpsetuspaberiga. Tõsta supilusikaga tainaportsud ahjuplaadile ning küpseta 180kraadises ahjus umbes 12 minutit, kuni küpsised on helepruunid. Lase veidi jahtuda, siis tõsta küpsised ettevaatlikult alusele. <br><br>Küpsised säilivad õhukindlas karbis kuni paar päeva.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="breakfast">
+                <div class="card">
+                    <img src="https://example.com/path-to-pancakes-image.jpg" class="card-img-top" alt="Pannkoogid">
+                    <h5 class="card-title text-center mt-3">Pannkoogid</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>2 muna</li>
+                                <li>300 ml piima</li>
+                                <li>200 g jahu</li>
+                                <li>1 tl küpsetuspulbrit</li>
+                                <li>näpuotsaga soola</li>
+                                <li>1 spl suhkrut</li>
+                                <li>õli praadimiseks</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Sega kõik koostisosad ühtlaseks tainaks. Kuumuta pann ja lisa veidi õli. Vala tainas pannile ja küpseta mõlemalt poolt kuldpruuniks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="salad">
+                <div class="card">
+                    <img src="https://example.com/path-to-salad-image.jpg" class="card-img-top" alt="Kartulisalat">
+                    <h5 class="card-title text-center mt-3">Kartulisalat</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>500 g kartuleid</li>
+                                <li>3 muna</li>
+                                <li>100 g hapukoort</li>
+                                <li>1 sibul</li>
+                                <li>soola ja pipart maitse järgi</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Keeda kartulid ja munad. Koori ja tükelda. Sega kõik koostisosad kokku ja maitsesta soola ja pipraga.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="salad">
+                <div class="card">
+                    <img src="https://example.com/path-to-caesar-salad-image.jpg" class="card-img-top" alt="Seesari salat">
+                    <h5 class="card-title text-center mt-3">Seesari salat</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>1 rooma salat</li>
+                                <li>50 g parmesani</li>
+                                <li>100 g krutoone</li>
+                                <li>Caesari kaste</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Rebi salat tükkideks. Lisa parmesan ja krutoonid. Sega kokku Caesari kastmega.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="pizza">
+                <div class="card">
+                    <img src="https://example.com/path-to-pizza-image.jpg" class="card-img-top" alt="Pizza">
+                    <h5 class="card-title text-center mt-3">Pizza</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>1 pizzapõhi</li>
+                                <li>200 g tomatikastet</li>
+                                <li>150 g juustu</li>
+                                <li>peale meelepäraseid katteid</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Määri pizzapõhjale tomatikaste. Lisa juust ja meelepärased katted. Küpseta 220 kraadi juures 10-15 minutit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="soup">
+                <div class="card">
+                    <img src="https://example.com/path-to-sausage-soup-image.jpg" class="card-img-top" alt="Kuldne viinerisupp">
+                    <h5 class="card-title text-center mt-3">Kuldne viinerisupp</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>1–1 ½ l vett</li>
+                                <li>½ kg porgandeid</li>
+                                <li>tükk kaalikat</li>
+                                <li>2 sibulat</li>
+                                <li>3 küüslauguküünt</li>
+                                <li>2 sl õli</li>
+                                <li>1 sl karrit</li>
+                                <li>½ tl musta jahvatatud pipart</li>
+                                <li>2 kanapuljongi kuubikut</li>
+                                <li>1–2 loorberilehte</li>
+                                <li>200 g sulatatud juustu</li>
+                                <li>400 g viinereid</li>
+                                <li>hakitud peterselli</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Koorige porgandid, kaalikas ja sibulad. Porgandid ja kaalikatükk riivige, sibulad hakkige peeneks. Keedunõu põhja valage õli, lisage karri, segage ning pange juurde riivitud juurvili, kuumutage segades. Siis valage juurde kuum vesi ja väheses vees lahustatud puljongikuubikud. Keetke umbes 10 minutit. Maitsestage pipra ja küüslauguga. Pange supi sisse juust väikeste tükikestena ja laske sel tasasel tulel läbi kuumeneda. Kui soovite, tehke supp püreeks, kuid hea supi saate ka niisama. Lisage tükeldatud viinerid ja loorber, hoidke suppi tasasel tulel veel umbes 10 minutit. Lauale andes puistake supile hakitud petersellilehti.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="soup">
+                <div class="card">
+                    <img src="https://example.com/path-to-vegetable-soup-image.jpg" class="card-img-top" alt="Aedvilja-püreesupp">
+                    <h5 class="card-title text-center mt-3">Aedvilja-püreesupp</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>umbes ½ l vett</li>
+                                <li>1 kuubik juurviljapuljongit</li>
+                                <li>400 g aedvilja (porgandit, lillkapsast, kaalikat)</li>
+                                <li>½ l piima</li>
+                                <li>1 dl riivitud kõva juustu</li>
+                                <li>1 tl köömneid</li>
+                                <li>1 tl basiilikut</li>
+                                <li>½ tl jahvatatud musta pipart</li>
+                                <li>pisut soola</li>
+                                <li>6 viilu röstsaia</li>
+                                <li>pisut oliiviõli</li>
+                                <li>1 küüslauguküüs</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Keetke veest ja puljongikuubikust leem, puistake sellesse puhastatud tükeldatud aedvili ning keetke tasasel tulel umbes 15 minutit. Püreestage pehmeks keenud aedviljad. Valage juurde piim ja puistake hulka riivitud juust. Kuumutage kogu aeg segades keemiseni. Maitsestage supp. Kuumutage pannil õli koos hästi peeneks hakitud küüslauguga ning praadige selles koorikuta kuubistatud saiaviilud, mida võite serveerimisel lisada supitaldrikusse. Pruunistatud saiakuubikuid võite anda lauale eraldi kausis.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mb-4 recipe-card" data-category="soup">
+                <div class="card">
+                    <img src="https://example.com/path-to-roasted-pepper-soup-image.jpg" class="card-img-top" alt="Supp küpsetatud paprikatest">
+                    <h5 class="card-title text-center mt-3">Supp küpsetatud paprikatest</h5>
+                    <div class="card-body">
+                        <div class="ingredients">
+                            <h5>Koostisosad:</h5>
+                            <ul class="list-unstyled">
+                                <li>1 l vett</li>
+                                <li>6 suurt punast paprikat</li>
+                                <li>½ värsket tšillit</li>
+                                <li>1 suurem küüslauk</li>
+                                <li>2 sl õli</li>
+                                <li>2 kanapuljongi kuubikut</li>
+                                <li>värsket või kuivatatud aed-liivateed</li>
+                                <li>purustatud musta pipart</li>
+                                <li>umbes 300 g küpsetatud forelli</li>
+                                <li>soola</li>
+                            </ul>
+                        </div>
+                        <div class="preparation">
+                            <h5>Valmistamine:</h5>
+                            <p>Lõigake paprikad neljaks, eemaldage seemned, asetage küpsetuspaberiga kaetud pannile, koor ülespoole, nende kõrvale pange koorimata küüslauguküüned ja tšilli. Kuumutage ahjus 250° juures umbes 15 minutit, kuni paprika koor tumeneb. Kui need on pisut jahtunud, eemaldage koored ja väikese noaotsaga puhastage küüslauguküüned. Pange küpsetatud viljad keedunõusse, lisage õli ning tehke püreeks. Valage peale vesi ja lahustatud puljongikuubikud ning laske keema tõusta. Maitsestage pipra, liivatee ja soolaga. Kui soovite tõeliselt nauditavat õhtueinet, lisage serveerimisel taldrikusse tükike fooliumis küpsetatud forelli.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more food items with the same structure -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function filterRecipes(category, button) {
+            const recipes = document.querySelectorAll('.recipe-card');
+            recipes.forEach(recipe => {
+                if (category === 'all' || recipe.dataset.category === category) {
+                    recipe.style.display = 'block';
+                } else {
+                    recipe.style.display = 'none';
+                }
+            });
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Add active class to the clicked button
+            button.classList.add('active');
+        }
+    </script>
+</body>
+</html>
