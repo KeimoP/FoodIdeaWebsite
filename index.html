@@ -12,7 +12,7 @@
         }
         .card-body {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             gap: 20px;
         }
         .ingredients, .preparation {
@@ -23,11 +23,16 @@
             background-color: #f9f9f9;
         }
         .preparation {
-            text-align: left; /* Ensure text is left-aligned */
+            text-align: left;
         }
         .btn.active {
             background-color: #007bff;
             color: white;
+        }
+        @media (min-width: 768px) {
+            .card-body {
+                flex-direction: row;
+            }
         }
     </style>
 </head>
@@ -171,7 +176,7 @@
             </div>
             <div class="col-12 mb-4 recipe-card" data-category="breakfast">
                 <div class="card">
-                    <img src="https://example.com/path-to-pancakes-image.jpg" class="card-img-top" alt="Pannkoogid">
+                    <img src="https://kooker.ee/wp-content/uploads/2024/06/nimetu-kujundus-3.png" class="card-img-top" alt="Pannkoogid">
                     <h5 class="card-title text-center mt-3">Pannkoogid</h5>
                     <div class="card-body">
                         <div class="ingredients">
@@ -195,7 +200,7 @@
             </div>
             <div class="col-12 mb-4 recipe-card" data-category="salad">
                 <div class="card">
-                    <img src="https://example.com/path-to-salad-image.jpg" class="card-img-top" alt="Kartulisalat">
+                    <img src="https://fitlap.ee/wp-content/images/recipes/21355-vegan-kartulisalat-original.jpg" class="card-img-top" alt="Kartulisalat">
                     <h5 class="card-title text-center mt-3">Kartulisalat</h5>
                     <div class="card-body">
                         <div class="ingredients">
@@ -217,7 +222,7 @@
             </div>
             <div class="col-12 mb-4 recipe-card" data-category="salad">
                 <div class="card">
-                    <img src="https://example.com/path-to-caesar-salad-image.jpg" class="card-img-top" alt="Seesari salat">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRCcGf457v1ils6dx8yE3E9UuV4GqLn9GUaFQ&s" class="card-img-top" alt="Seesari salat">
                     <h5 class="card-title text-center mt-3">Seesari salat</h5>
                     <div class="card-body">
                         <div class="ingredients">
@@ -238,8 +243,8 @@
             </div>
             <div class="col-12 mb-4 recipe-card" data-category="pizza">
                 <div class="card">
-                    <img src="https://example.com/path-to-pizza-image.jpg" class="card-img-top" alt="Pizza">
-                    <h5 class="card-title text-center mt-3">Pizza</h5>
+                    <img src="https://davincifood.ee/wp-content/uploads/2024/09/PANCETTA-AFFUMICATA-CRUDA-E-FUNGHI-7-1200x800.jpg" class="card-img-top" alt="Pizza">
+                    <h5 class="card-title text-center mt-3">Pizza alus</h5>
                     <div class="card-body">
                         <div class="ingredients">
                             <h5>Koostisosad:</h5>
@@ -259,7 +264,7 @@
             </div>
             <div class="col-12 mb-4 recipe-card" data-category="soup">
                 <div class="card">
-                    <img src="https://example.com/path-to-sausage-soup-image.jpg" class="card-img-top" alt="Kuldne viinerisupp">
+                    <img src="https://nami-nami.ee/files/recipes/4854/viinerisupps.jpg" class="card-img-top" alt="Kuldne viinerisupp">
                     <h5 class="card-title text-center mt-3">Kuldne viinerisupp</h5>
                     <div class="card-body">
                         <div class="ingredients">
@@ -289,7 +294,7 @@
             </div>
             <div class="col-12 mb-4 recipe-card" data-category="soup">
                 <div class="card">
-                    <img src="https://example.com/path-to-vegetable-soup-image.jpg" class="card-img-top" alt="Aedvilja-püreesupp">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh1XIEqm7G50-5jArDcETo6CGr9jQRss5CmQ&s" class="card-img-top" alt="Aedvilja-püreesupp">
                     <h5 class="card-title text-center mt-3">Aedvilja-püreesupp</h5>
                     <div class="card-body">
                         <div class="ingredients">
@@ -318,7 +323,7 @@
             </div>
             <div class="col-12 mb-4 recipe-card" data-category="soup">
                 <div class="card">
-                    <img src="https://example.com/path-to-roasted-pepper-soup-image.jpg" class="card-img-top" alt="Supp küpsetatud paprikatest">
+                    <img src="https://www.unileverfoodsolutionsbaltics.com/dam/global-ufs/mcos/nee/baltics/baltics/eesti/calcmenu/recipes/LT-recipes/In-Development/k%C3%BCpsetatud-paprika-supp/main-header.jpg" class="card-img-top" alt="Supp küpsetatud paprikatest">
                     <h5 class="card-title text-center mt-3">Supp küpsetatud paprikatest</h5>
                     <div class="card-body">
                         <div class="ingredients">
